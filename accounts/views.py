@@ -17,7 +17,7 @@ def register(request):
               return redirect('accounts:login')
         else:
               messages.warning(request, f'Unable to create account!')
-        return redirect('home')
+        return redirect('courseapp:home')
     else:
         form= UserRegisterForm()
         return render(request,'accounts/register.html', {'form':form})

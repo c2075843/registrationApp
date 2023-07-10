@@ -1,8 +1,18 @@
+{% extends "courseapp/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
 <h1>Registration page</h1>
 
 <form method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    
+    {{ form|crispy }}
 
+    
+    
     <button type="submit">Register</button>
 </form>
+{% endblock content %}
