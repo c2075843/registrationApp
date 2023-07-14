@@ -2,10 +2,17 @@
 from django.shortcuts import render,redirect
 from .forms import UserUpdateForm,UserRegisterForm
 from django.contrib import messages
+from .models import Student 
 
 
 def profile(request):
-    return render(request,'accounts/profile.html')
+    
+    return render(request,'accounts/profile.html',)
+    
+
+
+
+
 
 
 def register(request):
