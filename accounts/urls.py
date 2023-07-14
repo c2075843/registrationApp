@@ -1,8 +1,10 @@
 
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from accounts.models import Student
+from . import views 
 
-from . import views
+
 
 app_name='accounts'
 

@@ -2,15 +2,30 @@
 from django.shortcuts import render,redirect
 from .forms import UserUpdateForm,UserRegisterForm
 from django.contrib import messages
-from .models import Student 
+from accounts.models import Student
+from django.contrib.auth.decorators import login_required
+from .forms import ProfileUpdateForm
 
 
+@login_required
 def profile(request):
-    
-    return render(request,'accounts/profile.html',)
-    
+    student = request.user.student
 
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=student)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('accounts:profile')
+    else:
+        form = ProfileUpdateForm(instance=student)
 
+    context = {
+        'student': student,
+        'form': form
+    }
+
+    return render(request, 'accounts/profile.html', context)
 
 
 
