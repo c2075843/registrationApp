@@ -4,7 +4,7 @@ from .forms import UserUpdateForm,UserRegisterForm
 from django.contrib import messages
 from accounts.models import Student
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileUpdateForm
+from .forms import ProfileUpdateForm,UserUpdateForm
 
 
 @login_required
@@ -12,17 +12,21 @@ def profile(request):
     student = request.user.student
 
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=student)
-        if form.is_valid():
-            form.save()
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=student)
+        u_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
             messages.success(request, 'Your profile has been updated!')
             return redirect('accounts:profile')
     else:
-        form = ProfileUpdateForm(instance=student)
+        p_form = ProfileUpdateForm(instance=student)
+        u_form = UserUpdateForm(instance=request.user)
 
     context = {
         'student': student,
-        'form': form
+        'p_form': p_form,
+        'u_form': u_form
     }
 
     return render(request, 'accounts/profile.html', context)
