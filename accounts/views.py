@@ -28,8 +28,6 @@ def profile(request):
     return render(request, 'accounts/profile.html', context)
 
 
-
-
 def register(request):
     if request.method =='POST':
         form = UserRegisterForm(request.POST)

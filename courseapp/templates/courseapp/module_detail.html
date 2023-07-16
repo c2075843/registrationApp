@@ -1,0 +1,22 @@
+{% extends "courseapp/base.html" %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-header">Module Details</h3>
+<ul class="list-group">
+  
+    <li class="list-group-item">Course Name: {{ module.name }}</li>
+    <li class="list-group-item">Course Code: {{ module.code }}</li>
+    <li class="list-group-item">Course Credit: {{ module.credit }}</li>
+
+ 
+</ul>
+  </div>
+
+</div>
+
+
+
+{% endblock %}
