@@ -12,7 +12,7 @@ class Module(models.Model):
     description=models.TextField()
     category=models.CharField(max_length=100)
     availability=models.BooleanField(default=True)
-    courses=models.ManyToManyField(Group) 
+    courses=models.ManyToManyField(Group, related_name="modules") 
 
     def __str__(self):
         return self.name

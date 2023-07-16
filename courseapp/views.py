@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from .models import Module
+from django.contrib.auth.models import Group
 
 
 def home(request):
@@ -20,3 +21,9 @@ def module_detail(request, pk):
     module = get_object_or_404(Module, pk=pk)
     context = {'module': module}  # Use 'module' instead of 'modules'
     return render(request, 'courseapp/module_detail.html', context)
+
+def course_detail(request, pk):
+    course = get_object_or_404(Group, pk=pk)
+    modules = course.modules.all()
+    context = {'course': course, "modules":modules}
+    return render(request, 'courseapp/course_detail.html', context)

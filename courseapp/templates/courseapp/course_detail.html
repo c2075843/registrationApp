@@ -1,0 +1,26 @@
+{% extends "courseapp/base.html" %}
+
+{% block content %}
+
+<h3>Course Name: {{ course.name }}</h3>
+
+
+<h2>Modules  </h2>
+{% for module in modules %}    
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-header">Module Details</h3>
+            <ul class="list-group">
+                <li class="list-group-item"> Module Name: <a href="{% url 'courseapp:module_detail' module.id %}">  {{ module.name }} </a></li>
+                <li class="list-group-item">Module Code: {{ module.code }}</li>
+                <li class="list-group-item">Module Credit: {{ module.credit }}</li>
+            </ul>
+        </div>
+    </div>
+    <br>
+{% endfor %}
+    
+
+{% endblock %}
+
+  
