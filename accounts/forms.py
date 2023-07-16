@@ -21,8 +21,9 @@ class UserUpdateForm(forms.ModelForm):
    
 class ProfileUpdateForm(forms.ModelForm):
     photo = forms.ImageField(required=False)
+    course=forms.ModelChoiceField(queryset=Group.objects.all(),empty_label="Choose a course")
      
     class Meta:
         model = Student
-        fields = ['photo']
+        fields = ['photo', 'course']
           

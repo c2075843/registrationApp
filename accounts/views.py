@@ -29,6 +29,10 @@ def profile(request):
         'u_form': u_form
     }
 
+     # Disable the course field if user already has a course assigned
+    if student.course:
+        p_form.fields['course'].widget.attrs['disabled'] = True
+
     return render(request, 'accounts/profile.html', context)
 
 
