@@ -5,17 +5,39 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-header">Module Details</h3>
-<ul class="list-group">
-  
-    <li class="list-group-item">Course Name: {{ module.name }}</li>
-    <li class="list-group-item">Course Code: {{ module.code }}</li>
-    <li class="list-group-item">Course Credit: {{ module.credit }}</li>
+    <ul class="list-group">
 
- 
-</ul>
+      <li class="list-group-item">Course Name: {{ module.name }}</li>
+      <li class="list-group-item">Course Code: {{ module.code }}</li>
+      <li class="list-group-item">Course Credit: {{ module.credit }}</li>
+
+
+    </ul>
   </div>
 
 </div>
+
+{% if user.is_authenticated %}
+{{registered}}
+  {% if registered %}
+  
+  <form method="post" action="{% url 'courseapp:unregister' module.id %}">
+    {% csrf_token %}
+    <button type="submit" class=" btn btn-outline-primary">Unregister</button>
+  </form>
+  {% else %}
+  
+  <form method="post" action="{% url 'courseapp:register' module.id %}">
+    {% csrf_token %}
+    <button type="submit" class=" btn btn-outline-primary">Register</button>
+  </form>
+    
+ 
+
+  {% endif %}
+{% endif %}
+
+<br>
 
 
 

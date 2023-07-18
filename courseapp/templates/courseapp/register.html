@@ -1,0 +1,14 @@
+{% extends "courseapp/base.html" %}
+
+{% block content %}
+
+<h2>Unregister from {{ module.name }}</h2>
+<form method="post" action="{% url 'courseapp:unregister' module.id %}">
+  {% csrf_token %}
+  <p>Are you sure you want to unregister from this module?</p>
+  <button type="submit">Unregister</button>
+</form>
+
+
+
+{% endblock content %}

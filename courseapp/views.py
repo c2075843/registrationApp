@@ -1,6 +1,9 @@
-from django.shortcuts import get_object_or_404, render
-from .models import Module
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
+from .models import Module, Registration
 from django.contrib.auth.models import Group
+from django.contrib import messages 
 
 
 def home(request):
@@ -19,7 +22,8 @@ def module_list(request):
 
 def module_detail(request, pk):
     module = get_object_or_404(Module, pk=pk)
-    context = {'module': module}  # Use 'module' instead of 'modules'
+    registered= Registration.objects.filter(student=request.user.student, module=module).exists()
+    context = {'module': module,"registered": registered}
     return render(request, 'courseapp/module_detail.html', context)
 
 def course_detail(request, pk):
@@ -27,3 +31,32 @@ def course_detail(request, pk):
     modules = course.modules.all()
     context = {'course': course, "modules":modules}
     return render(request, 'courseapp/course_detail.html', context)
+
+@login_required
+def register_view(request, module_id):
+    module = Module.objects.get(pk=module_id)
+    student= request.user.student
+    registration,created=Registration.objects.get_or_create(student=student,module=module)
+    if created:
+       messages.success(request,f"You have registered for {module.name}")
+       return redirect(reverse('courseapp:module_detail',args=[module_id]))  # Redirect to the desired page after registration
+    else:
+        messages.warning(request,"Something went wrong")
+
+@login_required
+def unregister_view(request, module_id):
+    module = Module.objects.get(pk=module_id)
+    registration= Registration.objects.filter(student=request.user.student, module=module)
+    if registration.exists():
+        registration.delete()
+        messages.warning(request,"Unregister succesful")
+        return redirect(reverse('courseapp:module_detail', args=[module_id]))
+    else: 
+        messages.warning(request,"Unregister failed")
+
+
+    
+
+
+
+
