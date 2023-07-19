@@ -6,39 +6,42 @@
   <div class="card-body">
     <h3 class="card-header">Module Details</h3>
     <ul class="list-group">
-
       <li class="list-group-item">Course Name: {{ module.name }}</li>
       <li class="list-group-item">Course Code: {{ module.code }}</li>
       <li class="list-group-item">Course Credit: {{ module.credit }}</li>
-
-
     </ul>
   </div>
-
 </div>
+<br>
 
 {% if user.is_authenticated %}
-{{registered}}
   {% if registered %}
-  
-  <form method="post" action="{% url 'courseapp:unregister' module.id %}">
-    {% csrf_token %}
-    <button type="submit" class=" btn btn-outline-primary">Unregister</button>
-  </form>
+    <form method="post" action="{% url 'courseapp:unregister' module.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-primary">Unregister</button>
+    </form>
   {% else %}
-  
-  <form method="post" action="{% url 'courseapp:register' module.id %}">
-    {% csrf_token %}
-    <button type="submit" class=" btn btn-outline-primary">Register</button>
-  </form>
-    
- 
-
+    <form method="post" action="{% url 'courseapp:register' module.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-primary">Register</button>
+    </form>
   {% endif %}
 {% endif %}
 
 <br>
-
-
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-header">Registered Students</h3>
+    {% if registered_students %}
+      <ul class="list-group">
+        {% for first_name, last_name in registered_students %}
+          <li class="list-group-item">{{ first_name }} {{ last_name }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No students registered.</p>
+    {% endif %}
+  </div>
+</div>
 
 {% endblock %}

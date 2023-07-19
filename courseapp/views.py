@@ -20,10 +20,23 @@ def module_list(request):
     modules = Module.objects.all()
     return render(request, 'courseapp/module_list.html', {'modules': modules})
 
+@login_required
 def module_detail(request, pk):
     module = get_object_or_404(Module, pk=pk)
-    registered= Registration.objects.filter(student=request.user.student, module=module).exists()
-    context = {'module': module,"registered": registered}
+    registered_users_count = Registration.objects.filter(module=module).count()
+    registered_students = Registration.objects.filter(module=module).values_list('student__user__first_name', 'student__user__last_name')
+    
+
+    if request.user.is_authenticated:
+        registered = Registration.objects.filter(student=request.user.student, module=module).exists()
+
+    context = {
+        'module': module,
+        'registered': registered,
+        'registered_users_count': registered_users_count,
+        'registered_students': registered_students
+        
+    }
     return render(request, 'courseapp/module_detail.html', context)
 
 def course_detail(request, pk):
