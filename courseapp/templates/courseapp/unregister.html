@@ -3,7 +3,7 @@
 {% block content %}
 
 <h2>Register for {{ module.name }}</h2>
-<form method="post" action="{% url 'register' module.id %}">
+<form method="post" action="{% url 'register' module.code %}">
   {% csrf_token %}
   <p>Are you sure you want to register for this module?</p>
   <button type="submit">Register</button>

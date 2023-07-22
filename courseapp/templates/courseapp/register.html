@@ -3,7 +3,7 @@
 {% block content %}
 
 <h2>Unregister from {{ module.name }}</h2>
-<form method="post" action="{% url 'courseapp:unregister' module.id %}">
+<form method="post" action="{% url 'courseapp:unregister' module.code %}">
   {% csrf_token %}
   <p>Are you sure you want to unregister from this module?</p>
   <button type="submit">Unregister</button>

@@ -16,12 +16,12 @@
 
 {% if user.is_authenticated %}
   {% if registered %}
-    <form method="post" action="{% url 'courseapp:unregister' module.id %}">
+    <form method="post" action="{% url 'courseapp:unregister' module.code %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-primary">Unregister</button>
     </form>
   {% else %}
-    <form method="post" action="{% url 'courseapp:register' module.id %}">
+    <form method="post" action="{% url 'courseapp:register' module.code %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-primary">Register</button>
     </form>
