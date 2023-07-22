@@ -44,3 +44,22 @@
     </div>
 
 {% endblock content %}
+
+
+{% block sidebar %}
+
+<div class="col-md-4">
+    <div class="content-section">
+        <h4>Links </h4>
+        <ul class="list-group">                
+            <li class="list-group-item list-group-item-light">
+                <a class="mr-2" href="{% url 'accounts:my_registrations' %}">
+                    My registrations
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}
