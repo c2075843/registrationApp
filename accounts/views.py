@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProfileUpdateForm,UserUpdateForm
 
 
+
 @login_required
 def profile(request):
     student = request.user.student
@@ -49,3 +50,5 @@ def register(request):
     else:
         form= UserRegisterForm()
         return render(request,'accounts/register.html', {'form':form})
+
+

@@ -1,2 +1,9 @@
 .venv 
 *.pyc
+venv/
+db.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store

@@ -4,6 +4,7 @@ from courseapp import views
 
 
 
+
 app_name="courseapp"
 
 #URL Configurations

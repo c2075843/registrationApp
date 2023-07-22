@@ -29,19 +29,24 @@
 {% endif %}
 
 <br>
-<div class="card">
-  <div class="card-body">
-    <h3 class="card-header">Registered Students</h3>
-    {% if registered_students %}
-      <ul class="list-group">
-        {% for first_name, last_name in registered_students %}
-          <li class="list-group-item">{{ first_name }} {{ last_name }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No students registered.</p>
-    {% endif %}
-  </div>
-</div>
 
+<h3>Registered Students</h3>
+{% if registered_students %}
+  
+    {% for first_name, last_name in registered_students %}
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-primary">
+        <span class="article-content text-black">{{ first_name }} {{ last_name }}</span>
+      </li>
+     </ul>
+    {% empty %}
+    <ul class="list-group">
+            <li class="list-group-item ">No students registered.</li>
+    </ul>
+    {% endfor %}
+
+{% else %}
+  <p>No students registered.</p>
+{% endif %}
+<br>
 {% endblock %}

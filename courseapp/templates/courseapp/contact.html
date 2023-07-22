@@ -1,9 +1,17 @@
 {% extends "courseapp/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
-
-<h2>Contact Form</h2>
+<h1>Contact Us</h1>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

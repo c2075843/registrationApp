@@ -30,4 +30,3 @@ class Registration(models.Model):
     def __str__(self):
         return f"Student ID: {self.student.user.username} registered for: {self.module.name}"
 
-    

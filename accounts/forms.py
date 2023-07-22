@@ -3,6 +3,7 @@ from django.contrib.auth.models import User,Group
 from django.contrib.auth.forms import UserCreationForm
 from accounts.models import Student
 
+
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label = 'Email address', help_text = 'Your email address.')
     
