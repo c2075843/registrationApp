@@ -2,17 +2,6 @@
 
 {% block content %}
 
-<div class="card">
-  <div class="card-body">
-    <h3 class="card-header">Module Details</h3>
-    <ul class="list-group">
-      <li class="list-group-item">Course Name: {{ module.name }}</li>
-      <li class="list-group-item">Course Code: {{ module.code }}</li>
-      <li class="list-group-item">Course Credit: {{ module.credit }}</li>
-    </ul>
-  </div>
-</div>
-<br>
 
 {% if user.is_authenticated %}
   {% if registered %}
@@ -32,21 +21,66 @@
 
 <h3>Registered Students</h3>
 {% if registered_students %}
+<div class="container">
   
-    {% for first_name, last_name in registered_students %}
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-primary">
-        <span class="article-content text-black">{{ first_name }} {{ last_name }}</span>
-      </li>
-     </ul>
-    {% empty %}
-    <ul class="list-group">
-            <li class="list-group-item ">No students registered.</li>
-    </ul>
-    {% endfor %}
 
-{% else %}
-  <p>No students registered.</p>
-{% endif %}
-<br>
+     <div class="card">
+      <div class="card-body">
+        <h3 class="card-header text-success">{{ module.name }} Details</h3>
+        <ul class="list-group">
+          <li class="list-group-item">Course Code: {{ module.code }}</li>
+          <li class="list-group-item">Course Credit: {{ module.credit }}</li>
+        </ul> <br>
+        {% if user.is_authenticated %}
+      {% if registered %}
+        <form method="post" action="{% url 'courseapp:unregister' module.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">Unregister</button>
+        </form>
+      {% else %}
+        <form method="post" action="{% url 'courseapp:register' module.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-success">Register</button>
+        </form>
+      {% endif %}
+    {% endif %}
+      </div>
+  
+
+      
+    
+  
+      <div class="content-section card">
+        <h5 class="text-info">Registrations</h5>
+        {% if registered_students %}
+            {% for registration in registered_students %}
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-light" data-aos="fade-in">
+                        <img class="rounded-circle article-img" src="{{user.student.photo.url }}">
+                        <span class="article-content text-muted">{{ registration.student.user.first_name }} {{ registration.student.user.last_name }}</span>
+                    </li>
+                </ul>
+            {% empty %}
+                <ul class="list-group">
+                    <li class="list-group-item">No students registered.</li>
+                </ul>
+            {% endfor %}
+        {% else %}
+            <p>No students registered.</p>
+        {% endif %}
+    </div>
+    
+  </div>
+  
+
+
+</div>
+ 
+   
+    
+    
+    
+   
+
+
 {% endblock %}

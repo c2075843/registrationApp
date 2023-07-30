@@ -1,9 +1,10 @@
 {% extends "courseapp/base.html" %}
+{%load static%}
 
 {% block content %}
 
-<h3>Course Name: {{ course.name }}</h3>
 
+<main id="main">
 
 <h2>Modules  </h2>
 {% for module in modules %}    
@@ -16,11 +17,77 @@
                 <li class="list-group-item">Module Credit: {{ module.credit }}</li>
             </ul>
         </div>
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs" data-aos="fade-in">
+    <div class="container">
+      <h2 class="text-">{{ course.name }} Details</h2>
     </div>
-    <br>
-{% endfor %}
-    
+  </div><!-- End Breadcrumbs -->
+
+  <!-- ======= Cource Details Section ======= -->
+  <section id="course-details" class="course-details">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+        <div class="col-lg-8">
+          <img src=" {% static 'img/course-details.jpg' %}" class="img-fluid" alt="">
+          <h3><a href=""> List of {{ course.name }} Modules</a></h3>
+          <p>
+            Omnis et est. Voluptatem officia voluptatem adipisci et iusto provident doloremque consequatur. Quia et
+            porro est. Et qui corrupti laudantium ipsa.
+            Eum quasi saepe aperiam qui delectus quaerat in. Vitae mollitia ipsa quam. Ipsa aut qui numquam eum iste est
+            dolorum. Rem voluptas ut sit ut.
+          </p>
+        </div>
+        <div class="col-lg-4">
+
+          <div class="course-info d-flex justify-content-between align-items-center">
+            <h5>Course Name:</h5>
+            <p><a href="">{{ course.name }}</a></p>
+          </div>
+
+          <div class="course-info d-flex justify-content-between align-items-center">
+            <h5>Course Fee</h5>
+            <p>$165</p>
+          </div>
+
+          <div class="course-info d-flex justify-content-between align-items-center">
+            <h5>Available Seats</h5>
+            <p>30</p>
+          </div>
+
+          <div class="course-info d-flex justify-content-between align-items-center">
+            <h5>Schedule</h5>
+            <p>5.00 pm - 7.00 pm</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container" >
+      {% for module in modules %}
+      <div class="card" data-aos="fade-in"
+      data-aos-duration="3000">
+        <div class="card-body">
+          <h3 class="card-header"><a href="{% url 'courseapp:module_detail' module.id %}"> {{ module.name }} </a></h3>
+          <ul class="list-group">
+            <li class="list-group-item">Module Credit: {{ module.credit }}</li>
+          </ul>
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+    </div>
+  </section><!-- End Cource Details Section -->
+
+
+
+</main><!-- End #main -->
+
+
+
+
 
 {% endblock %}
-
-  

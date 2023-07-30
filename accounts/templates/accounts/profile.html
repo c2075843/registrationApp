@@ -3,18 +3,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="content-section">
+<div class="container">
+    <div class="content-section" data-aos="fade-up"
+    data-aos-duration="3000">
     <legend class="border-bottom mb-4"> Student Profile Details</legend>
-    <div class="media">
+    <div class="media" data-aos="fade-right"
+    data-aos-offset="300"
+    data-aos-easing="ease-in-sine">
 
     <p><img class="rounded-circle account-img" src="{{user.student.photo.url}}"></p>
     
     <div class="media-body">
     
-    <h2 class="account-heading">{{user.first_name}}  {{user.last_name}}</h2>
-    <p class="text-secondary">Email: {{user.email}}</p>
-    <p class="text-secondary">Address: {{user.student.address}}</p>
-    <p class="text-secondary">Course: {{user.student.course}}</p>
+    <h2 class="account-heading" data-aos="fade-up"
+    data-aos-duration="3000">{{user.first_name}}  {{user.last_name}}</h2>
+    <p class="text-secondary" data-aos="fade-up"
+    data-aos-duration="3000">Email: {{user.email}}</p>
+    <p class="text-secondary" data-aos="fade-up"
+    data-aos-duration="3000">Address: {{user.student.address}}</p>
+    <p class="text-secondary" data-aos="fade-up"
+    data-aos-duration="3000">Course: {{user.student.course}}</p>
     
     
     </div>
@@ -35,13 +43,16 @@
 
 <div class="form-group">
 
-<button class="btn btn-outline-info" type="submit">Update</button>
+<button class="btn btn-outline-info" type="submit" data-aos="fade-up"
+data-aos-duration="3000">Update</button>
 
 </div>
 
 </form>
 
     </div>
+</div>
+
 
 {% endblock content %}
 

@@ -1,13 +1,50 @@
 {% extends "courseapp/base.html" %}
 
+{% load static}
 {% block content %}
 
+<main id="main" data-aos="fade-in">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs">
+    <div class="container">
+      <h2>Courses</h2>
+      <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+    </div>
+  </div><!-- End Breadcrumbs -->
+
+  <!-- ======= Courses Section ======= -->
+  <section id="courses" class="courses">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row" data-aos="zoom-in" data-aos-delay="100">
 
 
-<div class="card">
-  <div class="card-body">
-    <h4 class="card-title">Module List</h4>
-<ul class="list-group">
+        {% for course in courses %}
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+          <div class="card" style="width: 18rem;">
+            
+            <div class="card-body">
+              <h5 class="card-title">{{course.name}}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="{% url 'courseapp:course_detail' course.id %}" class="btn btn-success">Learn more</a>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+
+
+      </div> <!-- End Course Item-->
+
+
+    </div>
+  </section><!-- End Courses Section -->
+
+</main><!-- End #main -->
+
 
     {% for module in modules %}
       <li class="list-group-item"><a href=" {% url 'courseapp:module_detail' module.code %}">{{ module.name }}</a></li>
@@ -16,6 +53,5 @@
   </div>
   
 
-</div>
 
 {% endblock content %}

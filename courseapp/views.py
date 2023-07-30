@@ -37,11 +37,11 @@ def module_detail(request, code):
             student=request.user.student, module=module
         ).exists()
     context = {
-        "module": module,
-        "registered": registered,
-        "registered_students": registered_students,
-    }
-    return render(request, "courseapp/module_detail.html", context)
+        'module': module,
+        "registered": registered, 
+        'registered_students': registered_students 
+        }
+    return render(request, 'courseapp/module_detail.html', context)
 
 
 def course_detail(request, pk):
