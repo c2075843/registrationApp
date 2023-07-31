@@ -45,13 +45,4 @@
 
 </main><!-- End #main -->
 
-
-    {% for module in modules %}
-      <li class="list-group-item"><a href=" {% url 'courseapp:module_detail' module.code %}">{{ module.name }}</a></li>
-    {% endfor %}
-  </ul>
-  </div>
-  
-
-
 {% endblock content %}
