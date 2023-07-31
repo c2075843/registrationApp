@@ -28,7 +28,7 @@ def module_list(request):
 def module_detail(request, code):
     module = get_object_or_404(Module, code=code)
     registered_students = Registration.objects.filter(module=module).values_list(
-        "student__user__first_name", "student__user__last_name"
+        "student__user__first_name", "student__user__last_name", "student__photo"
     )
     # Check if the user is registered for this module
     registered = False

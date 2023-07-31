@@ -2,24 +2,6 @@
 
 {% block content %}
 
-
-{% if user.is_authenticated %}
-  {% if registered %}
-    <form method="post" action="{% url 'courseapp:unregister' module.code %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-outline-primary">Unregister</button>
-    </form>
-  {% else %}
-    <form method="post" action="{% url 'courseapp:register' module.code %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-outline-primary">Register</button>
-    </form>
-  {% endif %}
-{% endif %}
-
-<br>
-
-<h3>Registered Students</h3>
 <div class="container">
   <div class="card">
   <div class="card-body">
@@ -30,12 +12,12 @@
     </ul> <br>
     {% if user.is_authenticated %}
       {% if registered %}
-        <form method="post" action="{% url 'courseapp:unregister' module.id %}">
+        <form method="post" action="{% url 'courseapp:unregister' module.code %}">
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-danger">Unregister</button>
         </form>
       {% else %}
-        <form method="post" action="{% url 'courseapp:register' module.id %}">
+        <form method="post" action="{% url 'courseapp:register' module.code %}">
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-success">Register</button>
         </form>
@@ -45,12 +27,15 @@
   
   <div class="content-section card">
     <h5 class="text-info">Registrations</h5>
+
+    
+
     {% if registered_students %}
-      {% for registration in registered_students %}
+      {% for first_name, last_name, photo_url in registered_students %}
         <ul class="list-group">
             <li class="list-group-item list-group-item-light" data-aos="fade-in">
-                <img class="rounded-circle article-img" src="{{user.student.photo.url }}">
-                <span class="article-content text-muted">{{ registration.student.user.first_name }} {{ registration.student.user.last_name }}</span>
+                <img class="rounded-circle article-img" src="{{ photo.url }}" >
+                <span class="article-content text-muted">{{ first_name }} {{ last_name }}</span>
             </li>
         </ul>
       {% empty %}
