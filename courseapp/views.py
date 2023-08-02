@@ -6,6 +6,7 @@ from registrationapp.decorators import login_required_with_message
 from .models import Module, Registration
 from django.contrib.auth.models import Group
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -27,9 +28,8 @@ def module_list(request):
 
 def module_detail(request, code):
     module = get_object_or_404(Module, code=code)
-    registered_students = Registration.objects.filter(module=module).values_list(
-        "student__user__first_name", "student__user__last_name", "student__photo"
-    )
+    registered_students = Registration.objects.filter(module=module).select_related('student__user')
+    module.registered_students = registered_students
     # Check if the user is registered for this module
     registered = False
     if request.user.is_authenticated:
@@ -43,12 +43,33 @@ def module_detail(request, code):
         }
     return render(request, 'courseapp/module_detail.html', context)
 
+def registrations(request):
+    modules = Module.objects.all()
+
+    for module in modules:
+        registered_students = Registration.objects.filter(module=module).select_related('student__user')
+        module.registered_students = registered_students
+
+        # Check if the user is registered for this module and attach the result to the module object
+        module.is_registered = False
+        if request.user.is_authenticated:
+            module.is_registered = Registration.objects.filter(
+                student=request.user.student, module=module
+            ).exists()
+
+    paginator = Paginator(modules, 1)  # Display 1 module per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {"page_obj": page_obj}
+    return render(request, "courseapp/registrations.html", context)
 
 def course_detail(request, pk):
     course = get_object_or_404(Group, pk=pk)
     modules = course.modules.all()
     context = {"course": course, "modules": modules}
     return render(request, "courseapp/course_detail.html", context)
+
 
 
 @login_required_with_message(message="You need to log in to access this page.")

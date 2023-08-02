@@ -1,0 +1,87 @@
+{% extends "courseapp/base.html" %}
+
+{% block content %}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+  <div class="container">
+    <h2 class="text-white">Module Registrations</h2>
+  </div>
+</div><!-- End Breadcrumbs -->
+
+<div class="container">
+  {% for module in page_obj %}
+  <div class="card-body">
+    <h3 class="card-header text-success">{{ module.name }} Details</h3>
+    <ul class="list-group">
+      <li class="list-group-item">Course Code: {{ module.code }}</li>
+      <li class="list-group-item">Course Credit: {{ module.credit }}</li>
+    </ul>
+    <br>
+
+        {% if user.is_authenticated %}
+         {% if registered %}
+         <form method="post" action="{% url 'courseapp:unregister' module.code %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">Unregister</button>
+         </form>
+         {% else %}
+          <form method="post" action="{% url 'courseapp:register' module.code %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-success">Register</button>
+          </form>
+          {% endif %}
+          {% endif %}
+
+        <br>
+         
+<div class="">
+    <h5 class="text-info">Registered Students</h5>
+    {% if module.registered_students.exists %}
+        {% for registration in module.registered_students %}
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-light" data-aos="fade-in">
+                    <img class="rounded-circle article-img" src="{{ registration.student.photo.url }}" >
+                    <span class="article-content text-muted">{{ registration.student.user.first_name }} {{ registration.student.user.last_name }}</span>
+                </li>
+            </ul>
+       
+        {% endfor %}
+    {% else %}
+        <p>No student registered.</p>
+    {% endif %}
+        </div>
+        
+  </div>
+  {% endfor %}
+
+  <!-- Pagination links -->
+  <div class="pagination justify-content-center">
+    <ul class="pagination pagination-lg">
+      {% if page_obj.has_previous %}
+      <li class="page-item text-info">
+        <a class="page-link text-success" href="?page=1">&laquo; First</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link text-success" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item disabled">
+        <span class="page-link text-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+      </li>
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link text-success" href="?page={{ page_obj.next_page_number }}">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link text-success" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+  <br><br>
+</div>
+
+{% endblock content %}

@@ -25,34 +25,28 @@
     {% endif %}
   </div>
   
-  <div class="content-section card">
-    <h5 class="text-info">Registrations</h5>
-
-    
-
-    {% if registered_students %}
-      {% for first_name, last_name, photo_url in registered_students %}
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-light" data-aos="fade-in">
-                <img class="rounded-circle article-img" src="{{ photo.url }}" >
-                <span class="article-content text-muted">{{ first_name }} {{ last_name }}</span>
-            </li>
-        </ul>
-      {% empty %}
-        <ul class="list-group">
-            <li class="list-group-item">No students registered.</li>
-        </ul>
+  <div class="content-section">
+    <h5 class="text-info">Registered Students</h5>
+     {% if module.registered_students.exists %}
+      {% for registration in module.registered_students %}
+          <ul class="list-group">
+              <li class="list-group-item list-group-item-light" data-aos="fade-in">
+                  <img class="rounded-circle article-img" src="{{ registration.student.photo.url }}" >
+                  <span class="article-content text-muted">{{ registration.student.user.first_name }} {{ registration.student.user.last_name }}</span>
+              </li>
+          </ul>
+     
       {% endfor %}
-    {% else %}
-      <p>No students registered.</p>
-    {% endif %}
-  </div>
-    
+  {% else %}
+      <p>No student registered.</p>
+  {% endif %}
   </div>
   
-
-
+ 
+      </div>
+      
 </div>
+  
  
    
     
