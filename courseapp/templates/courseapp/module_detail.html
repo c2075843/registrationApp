@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="container">
+  <br>
   <div class="card">
   <div class="card-body">
     <h3 class="card-header text-success">{{ module.name }} Details</h3>
@@ -25,8 +26,8 @@
     {% endif %}
   </div>
   
-  <div class="content-section">
-    <h5 class="text-info">Registered Students</h5>
+  <div class="">
+    <h5 class="text-info card-header">Registered Students</h5>
      {% if module.registered_students.exists %}
       {% for registration in module.registered_students %}
           <ul class="list-group">
@@ -38,13 +39,17 @@
      
       {% endfor %}
   {% else %}
-      <p>No student registered.</p>
+  <div class="card-body">
+    <p>No student registered.</p>
+  </div>
+      
   {% endif %}
   </div>
   
  
       </div>
       
+  <br>
 </div>
   
  

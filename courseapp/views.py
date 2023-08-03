@@ -20,7 +20,7 @@ def about(request):
 def contact(request):
     return render(request, "courseapp/contact.html", {"title": "Contact US"})
 
-
+@login_required_with_message(message="You need to log in to access this page.")
 def module_list(request):
     modules = Module.objects.all()
     return render(request, "courseapp/module_list.html", {"modules": modules})
@@ -43,9 +43,9 @@ def module_detail(request, code):
         }
     return render(request, 'courseapp/module_detail.html', context)
 
+@login_required_with_message(message="You need to log in to access this page.")
 def registrations(request):
     modules = Module.objects.all()
-
     for module in modules:
         registered_students = Registration.objects.filter(module=module).select_related('student__user')
         module.registered_students = registered_students
@@ -61,9 +61,28 @@ def registrations(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {"page_obj": page_obj}
+    context = {
+        "page_obj": page_obj,
+    }
+
+    if request.method == 'POST':
+        module_code = request.POST.get('module_code')
+        try:
+            module = Module.objects.get(code=module_code)
+        except Module.DoesNotExist:
+            return redirect('courseapp:registrations')  # Redirect to the same page if the module does not exist
+
+        if request.user.is_authenticated:
+            if 'register' in request.POST:
+                Registration.objects.create(student=request.user.student, module=module)
+            elif 'unregister' in request.POST:
+                Registration.objects.filter(student=request.user.student, module=module).delete()
+
+        return redirect('courseapp:registrations')  # Redirect to the same page after registration/unregistration
+
     return render(request, "courseapp/registrations.html", context)
 
+@login_required_with_message(message="You need to log in to access this page.")
 def course_detail(request, pk):
     course = get_object_or_404(Group, pk=pk)
     modules = course.modules.all()

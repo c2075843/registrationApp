@@ -5,13 +5,15 @@
 {% block content %}
 
 <div class="container">
-    
-    <div class="row" >
+    <br>
+    <div class="card mx-auto" style="width: 700px;">
+        <div class="row" >
         <div class="col-md-12">
-            <div class="content-section" data-aos="fade-up"
+            <div class="card-body" data-aos="fade-up"
             data-aos-duration="3000">
-
-                <h3>Registration page</h3>
+                <br>
+                <h3 class="text-info text-center font-weight-bold">REGISTER</h3>
+                <br>
 
                 <form method="post">
                     {% csrf_token %}
@@ -28,6 +30,8 @@
             </div>
         </div>
     </div>
+    </div>
+    <br>
 
 </div>
 

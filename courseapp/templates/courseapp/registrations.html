@@ -3,15 +3,17 @@
 {% block content %}
 
 <!-- ======= Breadcrumbs ======= -->
-<div class="breadcrumbs">
-  <div class="container">
+<div class="breadcrumbs bg-info ">
+  <div class="container ">
     <h2 class="text-white">Module Registrations</h2>
   </div>
 </div><!-- End Breadcrumbs -->
 
 <div class="container">
+  <br>
   {% for module in page_obj %}
-  <div class="card-body">
+  <div class="card">
+    <div class="card-body">
     <h3 class="card-header text-success">{{ module.name }} Details</h3>
     <ul class="list-group">
       <li class="list-group-item">Course Code: {{ module.code }}</li>
@@ -20,23 +22,23 @@
     <br>
 
         {% if user.is_authenticated %}
-         {% if registered %}
-         <form method="post" action="{% url 'courseapp:unregister' module.code %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-danger">Unregister</button>
-         </form>
-         {% else %}
-          <form method="post" action="{% url 'courseapp:register' module.code %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-success">Register</button>
-          </form>
-          {% endif %}
-          {% endif %}
-
+      {% if module.is_registered %}
+        <form method="post" action="{% url 'courseapp:unregister' module.code %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">Unregister</button>
+        </form>
+      {% else %}
+        <form method="post" action="{% url 'courseapp:register' module.code %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-success">Register</button>
+        </form>
+      {% endif %}
+    {% endif %}
+</div>
         <br>
          
-<div class="">
-    <h5 class="text-info">Registered Students</h5>
+<div class="card">
+    <h5 class="text-info card-header">Registered Students</h5>
     {% if module.registered_students.exists %}
         {% for registration in module.registered_students %}
             <ul class="list-group">
@@ -48,11 +50,22 @@
        
         {% endfor %}
     {% else %}
-        <p>No student registered.</p>
+    <div class="card-body">
+      <p>No student registered.</p>
+    </div>
     {% endif %}
         </div>
         
+  
+      </div>
+
+
+
+
+
   </div>
+  <br>
+  
   {% endfor %}
 
   <!-- Pagination links -->

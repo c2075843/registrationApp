@@ -6,7 +6,7 @@
 <div class="container">
     <div class="content-section" data-aos="fade-up"
     data-aos-duration="3000">
-    <legend class="border-bottom mb-4"> Student Profile Details</legend>
+    <legend class="border-bottom mb-4 text-success " > Student Profile Details</legend>
     <div class="media" data-aos="fade-right"
     data-aos-offset="300"
     data-aos-easing="ease-in-sine">
@@ -15,26 +15,24 @@
     
     <div class="media-body">
     
-    <h2 class="account-heading" data-aos="fade-up"
+    <h2 class="account-heading text-info" data-aos="fade-up"
     data-aos-duration="3000">{{user.first_name}}  {{user.last_name}}</h2>
-    <p class="text-secondary" data-aos="fade-up"
-    data-aos-duration="3000">Email: {{user.email}}</p>
-    <p class="text-secondary" data-aos="fade-up"
-    data-aos-duration="3000">Address: {{user.student.address}}</p>
-    <p class="text-secondary" data-aos="fade-up"
-    data-aos-duration="3000">Course: {{user.student.course}}</p>
+    <h6 class="text-secondary" data-aos="fade-up"
+    data-aos-duration="3000">Course: {{user.student.course}}</h6>
+    <h6 class="text-secondary" data-aos="fade-up"
+    data-aos-duration="3000">Email: {{user.email}}</h6>
     
     
-    </div>
     
     </div>
+    
+    </div>
+    <br>
     <form method="POST" enctype="multipart/form-data">
 
 {% csrf_token %}
 
 <fieldset class="form-group">
-
-
 
 {{ u_form|crispy}}
 {{ p_form|crispy}}
@@ -44,7 +42,7 @@
 <div class="form-group">
 
 <button class="btn btn-outline-info" type="submit" data-aos="fade-up"
-data-aos-duration="3000">Update</button>
+data-aos-duration="2000">Update</button>
 
 </div>
 
@@ -52,7 +50,7 @@ data-aos-duration="3000">Update</button>
 
     </div>
 </div>
-
+<br><br>
 
 {% endblock content %}
 
@@ -72,5 +70,6 @@ data-aos-duration="3000">Update</button>
     </div>
 
 </div>
+
 
 {% endblock %}

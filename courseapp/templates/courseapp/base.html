@@ -40,7 +40,7 @@
 
 <body>
   <header class="site-header ">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark text-white fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-info text-white fixed-top">
       <div class="container">
         <a class="navbar-brand mr-4" href="{% url 'courseapp:home' %}">Happy University</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
@@ -55,19 +55,19 @@
             <a class="nav-item nav-link text-white" href="{% url 'courseapp:module_list' %}">Modules</a>
           </div>
           <!-- Navbar Right Side -->
-          <div class="navbar-nav">
+          <div class="navbar-nav text-white">
 
             {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href="{% url 'courseapp:registrations' %}">Registrations</a>
-            <a class="nav-item nav-link" href="{% url 'accounts:profile' %}">Profile</a>
-            <a class="nav-item nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+            <a class="nav-item nav-link text-white" href="{% url 'courseapp:registrations' %}">Registrations</a>
+            <a class="nav-item nav-link text-white" href="{% url 'accounts:profile' %}">Profile</a>
+            <a class="nav-item nav-link text-white" href="{% url 'accounts:logout' %}">Logout</a>
 
 
             {% else %}
 
-            <a class="nav-item nav-link" href="{% url 'accounts:login' %}">Login</a>
+            <a class="nav-item nav-link text-white" href="{% url 'accounts:login' %}">Login</a>
 
-            <a class="nav-item nav-link" href="{% url 'accounts:register' %}">Register</a>
+            <a class="nav-item nav-link text-white" href="{% url 'accounts:register' %}">Register</a>
 
             {% endif %}
 
@@ -100,9 +100,9 @@
 
 
   <!-- ======= Footer ======= -->
-  <footer class="footer bg-dark">
+  <footer class="footer bg-info">
     <div class="container">
-      <p class='text-white'>&copy; 2023 Happy Universe</p>
+      <p class='text-white '>&copy; 2023 Happy Universe</p>
     </div>
   </footer>
 

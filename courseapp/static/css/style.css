@@ -458,12 +458,13 @@ section {
   text-transform: uppercase;
   font-family: "Poppins", sans-serif;
   color: #37423b;
+  
 }
 
 .breadcrumbs {
   margin-top: 73px;
   text-align: center;
-  background: #5fcf80;
+  background: #17a2b8;
   padding: 30px 0;
   color: #fff;
 }
@@ -1596,6 +1597,11 @@ a.article-title:hover {
 .article-metadata a:hover {
   color: #333;
   text-decoration: none;
+}
+
+.navbar {
+  margin: 0;
+  padding: 19px;
 }
 
 .footer {
