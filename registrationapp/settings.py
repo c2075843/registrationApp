@@ -32,10 +32,8 @@ DEBUG = 'WEBSITE_HOSTNAME' not in os.environ
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = [
-        "https://https://happyuniversity.azurewebsites.net/","https://happyuniversity.azurewebsites.net/"
-    ]
-    CSRF_TRUSTED_ORIGINS = ["https://https://happyuniversity.azurewebsites.net/"]
+    ALLOWED_HOSTS = ["https://happyuniversity.azurewebsites.net/","happyuniversity.azurewebsites.net/"]
+    CSRF_TRUSTED_ORIGINS = ["https://happyuniversity.azurewebsites.net/"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
  
