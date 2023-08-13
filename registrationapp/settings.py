@@ -25,19 +25,17 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY= os.environ.get('SECRET_KEY',"django-insecure-v%6wdj7w9m#f45_e4mgvy&e-$jdx)ecq+hbfmxtdb-e(&9(pcr") 
 
-WEBSITE_HOSTNAME = os.environ.get('WEBSITE_HOSTNAME', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = WEBSITE_HOSTNAME == None
+DEBUG = 'WEBSITE_HOSTNAME' not in os.environ
  
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = [
-        f"https://{WEBSITE_HOSTNAME}",
-        WEBSITE_HOSTNAME,
+        "https://https://happyuniversity.azurewebsites.net/","https://happyuniversity.azurewebsites.net/"
     ]
-    CSRF_TRUSTED_ORIGINS = [f"https://{WEBSITE_HOSTNAME}"]
+    CSRF_TRUSTED_ORIGINS = ["https://https://happyuniversity.azurewebsites.net/"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
  
