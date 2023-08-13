@@ -25,18 +25,19 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY= os.environ.get('SECRET_KEY',"django-insecure-v%6wdj7w9m#f45_e4mgvy&e-$jdx)ecq+hbfmxtdb-e(&9(pcr") 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'WEBSITE_HOSTNAME' not in os.environ
+WEBSITE_HOSTNAME = os.environ.get('WEBSITE_HOSTNAME', None)
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = WEBSITE_HOSTNAME == None
  
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = [
-        "https://happyuniversity.azurewebsites.net",
-        "happyuniversity.azurewebsites.net",
+        f"https://{WEBSITE_HOSTNAME}",
+        WEBSITE_HOSTNAME,
     ]
-    CSRF_TRUSTED_ORIGINS = ["https://happyuniversity.azurewebsites.net"]
+    CSRF_TRUSTED_ORIGINS = [f"https://{WEBSITE_HOSTNAME}"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
  
@@ -149,7 +150,7 @@ if DEBUG:
     STATIC_URL = "static/"
     MEDIA_ROOT = BASE_DIR / "media"
     MEDIA_URL = "/media/"
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+    # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 else:
     MEDIA_URL = (
         f"https://{os.environ.get('AZURE_SA_NAME')}.blob.core.windows.net/media/"
