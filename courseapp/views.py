@@ -1,12 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
-
 from registrationapp.decorators import login_required_with_message
 from .models import Module, Registration
 from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.core.paginator import Paginator
+from courseapp.serializers import CourseSerializer,ModuleSerializer,UserSerializer,StudentSerializer,RegistrationSerializer
+from rest_framework import serializers
+from rest_framework.response import Response
+from rest_framework import  generics, status
+from accounts.models import Student,User,Group
 
 
 def home(request):
@@ -119,3 +123,46 @@ def unregister_view(request, code):
         return redirect(reverse("courseapp:module_detail", args=[code]))
     else:
         messages.warning(request, "Unregister failed")
+
+
+
+      
+class ApiRoot(generics.GenericAPIView):
+    """
+    API homepage
+    """
+
+    name = 'api-root'
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'users': request.build_absolute_uri(reverse(UsersList.name)),
+            'students': request.build_absolute_uri(reverse(StudentsList.name)),
+            'modules': request.build_absolute_uri(reverse(ModulesList.name)),
+            'courses': request.build_absolute_uri(reverse(CoursesList.name)),
+            'registation': request.build_absolute_uri(reverse(RegistrationsList.name))
+            })
+
+class StudentsList(generics.ListCreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    name = "student-list"
+    
+class UsersList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = "user-list"
+
+class CoursesList(generics.ListCreateAPIView):
+    queryset = Group.objects.all()
+    serializer_class = CourseSerializer
+    name = "groups-list"
+
+class ModulesList(generics.ListCreateAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleSerializer
+    name = "modules-list"
+
+class RegistrationsList(generics.ListCreateAPIView):
+    queryset = Registration.objects.all()
+    serializer_class = RegistrationSerializer
+    name = "registration-list"

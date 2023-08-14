@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from registrationapp.decorators import login_required_with_message
 from .forms import UserUpdateForm, UserRegisterForm
 from django.contrib import messages
-from accounts.models import Student
 from .forms import ProfileUpdateForm, UserUpdateForm
 
 

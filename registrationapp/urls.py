@@ -20,10 +20,16 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+from courseapp.views import ApiRoot,CoursesList,ModulesList,RegistrationsList,UsersList,StudentsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("courseapp.urls")),
     path("accounts/", include("accounts.urls")),
+    path('api/',ApiRoot.as_view(),name=ApiRoot.name),
+    path('api/students/', StudentsList.as_view(), name=StudentsList.name),
+    path('api/users/', UsersList.as_view(), name=UsersList.name),
+    path('api/courses/', CoursesList.as_view(), name=CoursesList.name),
+    path('api/modules/', ModulesList.as_view(), name=ModulesList.name),
+    path('api/registration/', RegistrationsList.as_view(), name=RegistrationsList.name),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

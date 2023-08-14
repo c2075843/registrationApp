@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     "courseapp.apps.CourseappConfig",
     "crispy_forms",
     "crispy_bootstrap4",
-    'storages'
+    'storages',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
