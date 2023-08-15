@@ -21,11 +21,32 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from courseapp.views import ApiRoot,CoursesList,ModulesList,RegistrationsList,UsersList,StudentsList
+from accounts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("courseapp.urls")),
     path("accounts/", include("accounts.urls")),
+path(
+        "password_reset/",
+        views.CustomPasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    path(
+        "password_reset/done/",
+        views.CustomPasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        views.CustomPasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/done/",
+        views.CustomPasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
     path('api/',ApiRoot.as_view(),name=ApiRoot.name),
     path('api/students/', StudentsList.as_view(), name=StudentsList.name),
     path('api/users/', UsersList.as_view(), name=UsersList.name),

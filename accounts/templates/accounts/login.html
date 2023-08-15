@@ -11,21 +11,21 @@
 <div  class="card mx-auto" style="width: 700px;">
     <div class="card-body">
 <div class="row">
-            <div class="col-md-12">
-                <br>
-                <h3 class="text-info text-center font-weight-bold">Login</h3>
-                <br>
-                <form method="post">
-                    {% csrf_token %}
+    <div class="col-md-12">
+        <br>
+        <h3 class="text-info text-center font-weight-bold">Login</h3>
+        <br>
+        <form method="post">
+            {% csrf_token %}
 
-                    {{ form|crispy }}
+            {{ form|crispy }}
 
-                    <button class="btn btn-outline-success" type="submit">Login</button>
-                </form>
-            </div>
-        </div>
+            <button class="btn btn-outline-success" type="submit">Login</button>
+        </form>
     </div>
-    
+    </div>
+</div>
+    <a href="{% url 'password_reset' %}"> Forgot password</a> 
 </div>
         
     </div>

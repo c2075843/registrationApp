@@ -1,10 +1,11 @@
-from multiprocessing import context
+from django.urls import reverse
 from django.shortcuts import render, redirect
 
 from registrationapp.decorators import login_required_with_message
 from .forms import UserUpdateForm, UserRegisterForm
 from django.contrib import messages
 from .forms import ProfileUpdateForm, UserUpdateForm
+from django.contrib.auth.views import PasswordResetView,PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView
 
 
 @login_required_with_message(message="You need to log in to access this page.")
@@ -56,3 +57,26 @@ def my_registrations(request):
     # pdb.set_trace()
     context = {"registered_modules": request.user.student.student_registrations}
     return render(request, "accounts/my_registrations.html", context)
+
+
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = "password_reset_email.html"
+    subject_template_name = "mail_subject.txt"
+    template_name = "password_reset_form.html"
+
+    def get_success_url(self):
+        return reverse("password_reset_done")
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "password_reset_done.html"
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "password_reset_confirm.html"
+    def get_success_url(self):
+        return reverse("login")
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "password_reset_complete.html"

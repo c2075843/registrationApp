@@ -171,3 +171,12 @@ LOGOUT_REDIRECT_URL='courseapp:home'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# Email Settings
+# https://docs.djangoproject.com/en/4.2/topics/email/
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "cbasedproject@gmail.com"
+EMAIL_HOST_PASSWORD = "kfgthmwteepnvazr"
+EMAIL_USE_TLS = True
