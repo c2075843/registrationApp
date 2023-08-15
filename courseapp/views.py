@@ -11,6 +11,8 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework import  generics, status
 from accounts.models import Student,User,Group
+from .forms import ContactForm
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -21,8 +23,55 @@ def about(request):
     return render(request, "courseapp/about.html", {"title": "About US"})
 
 
+
+
+
+
+
 def contact(request):
-    return render(request, "courseapp/contact.html", {"title": "Contact US"})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            
+            recipient_email = 'david.okose@hotmail.com'  # Replace with recipient's email
+            
+            send_mail(
+                subject,
+                f"From: {name} <{email}>\n\n{message}",
+                email,  # Sender's email
+                [recipient_email],  # Recipient's email
+                fail_silently=False,
+            )
+            
+            # Add a success message
+            messages.success(request, 'Your message was successfully sent!')
+            
+            return redirect('courseapp:contact')  # Redirect back to the contact page
+    else:
+        form = ContactForm()
+
+    return render(request, "courseapp/contact.html", {"title": "Contact Us", "form": form})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required_with_message(message="You need to log in to access this page.")
 def module_list(request):

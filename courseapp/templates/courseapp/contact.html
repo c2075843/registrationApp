@@ -1,23 +1,31 @@
 {% extends "courseapp/base.html" %}
 
-{% load crispy_forms_tags %}
-
 {% block content %}
-
-<h1>Contact Us</h1>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-success" role="alert">
-            {{ message }}
+{% load crispy_forms_tags %}
+<div class="container">
+   
+    <br>
+    <div class="card mx-auto" style="max-width: 700px;">
+        <div class="card-body">
+            <h2 class=" text-center font-weight-bold">Contact Us</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.name|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                    {{ form.email|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                    {{ form.subject|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                    {{ form.message|as_crispy_field }}
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
         </div>
-    {% endfor %}
-{% endif %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
-
-
-
-{% endblock content %}
+    </div>
+    <br>
+</div>
+{% endblock %}

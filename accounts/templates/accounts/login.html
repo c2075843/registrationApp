@@ -20,13 +20,14 @@
 
             {{ form|crispy }}
 
-            <button class="btn btn-outline-success" type="submit">Login</button>
+            <button class="btn btn-success" type="submit">Login</button>
+            <a href="{% url 'password_reset' %}" class="btn btn-outline-danger"> Forgot password</a>
+
         </form>
+        <br>
     </div>
     </div>
-</div>
-    <a href="{% url 'password_reset' %}"> Forgot password</a> 
-</div>
+
         
     </div>
 
